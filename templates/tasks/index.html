@@ -1,0 +1,34 @@
+{% extends 'tasks/base.html' %}
+
+{% block title %}
+    Tasks
+{% endblock %}
+
+
+{% block body %}
+    <h1>Tasks</h1>
+    <form action="{% url 'view_tasks' %}" method="post">
+    {% csrf_token %}
+        <input type="text" placeholder="Add tasks" name="task">
+        <input type="submit" value="Add">
+    </form>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Task Name</th>
+        </tr>
+        {% for task in tasks %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ task.title }}</td>
+            </tr>
+        {% endfor %}
+        </thead>
+
+        <tbody>
+
+        </tbody>
+    </table>
+
+{% endblock %}

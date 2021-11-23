@@ -1,0 +1,75 @@
+views.py
+
+# CREATE operation of CRUD
+def create_task(request):
+    # Create a form instance and populate it with data from the request
+    # we can pass this form variable as context, and it is capable of creating html
+    form = ProductForm(request.POST or None)
+    # check whether it's valid:
+    if form.is_valid():
+        # save the record into the db
+        form.save()
+        # after saving redirect to view_product page
+        return redirect('view_products')
+
+    # if the request does not have post data, a blank form will be rendered
+    return render(request, 'products/product-form.html', {'form': form})
+
+
+# need to add id parameter where product id will be argument
+def update_product(request, id):
+    # Get the product based on its id
+    product = Product.objects.get(id=id)
+    # populate a form instance with data from the data on the database
+    # instance=product allows to update the record rather than creating a new record when save method is called
+    form = ProductForm(request.POST or None, instance=product)
+
+    # check whether it's valid:
+    if form.is_valid():
+        # update the record in the db
+        form.save()
+        # after updating redirect to view_product page
+        return redirect('view_products')
+
+    # if the request does not have post data, render the page with the form containing the product's info
+    return render(request, 'products/product-form.html', {'form': form})
+
+
+def delete_product(request, id):
+    # we will need id because we need to know which particular row of Products table we are deleting
+    # Get the product based on its id
+    product = Product.objects.get(id=id)
+
+    # if this is a POST request, we need to delete the form data
+    if request.method == 'POST':
+        product.delete()
+        # after deleting redirect to view_product page
+        return redirect('view_products')
+
+    # if the request is not post, render the page with the product's info
+    return render(request, 'products/delete-confirm.html', {'product': product})
+
+
+models.py
+from django.db import models
+
+
+class Task(models.Model):
+    title = models.CharField(max_length=25)
+    description = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.description
+
+
+urls.py
+
+
+apps.py
+
+from django.apps import AppConfig
+
+
+class TodoConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'hw4.hw4'
