@@ -7,9 +7,9 @@
 
 {% block body %}
     <h1>Tasks</h1>
-    <form action="{% url 'view_tasks' %}" method="post">
+    <form action="{% url 'add_task' %}" method="post">
     {% csrf_token %}
-        <input type="text" placeholder="Add tasks" name="task">
+        {{form.task_item}}
         <input type="submit" value="Add">
     </form>
     <table class="table table-hover">
@@ -21,7 +21,7 @@
         {% for task in tasks %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ task.title }}</td>
+                <td>{{ task.task_item }}</td>
             </tr>
         {% endfor %}
         </thead>

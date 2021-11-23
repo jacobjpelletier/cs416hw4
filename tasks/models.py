@@ -2,7 +2,8 @@ from django.db import models
 
 
 class Task(models.Model):
-    title = models.CharField(max_length=25)
+    task_item = models.CharField(max_length=25)
+    complete = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.title
+        return self.task_item
