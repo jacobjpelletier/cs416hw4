@@ -22,3 +22,30 @@ def add_task(request):
         new_task.save()
 
     return redirect('view_tasks')
+
+
+def delete_task(request, id):
+    task = Task.objects.get(id=id)
+    if request.method == 'POST':
+        task.delete()
+        return redirect('view_tasks')
+
+    return render(request, 'tasks/delete.html', {'task': task})
+
+
+def update_task(request, id):
+    task = Task.objects.get(id=id)
+    form = TaskForm(request.POST, instance=task)
+    if form.is_valid():
+        form.save()
+        return redirect('view_tasks')
+
+    return render(request, 'tasks/update.html', {'form': form})
+
+
+def complete_task(request, id):
+    task = Task.objects.get(id=id)
+    task.complete = True
+    task.save()
+
+    return redirect('view_tasks')

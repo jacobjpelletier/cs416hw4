@@ -1,0 +1,9 @@
+.completed-task {
+    background-color: darkgrey; !important;
+    color: red; !important;
+    text-decoration: line-through; !important;
+}
+
+h1 {
+    color: red;
+}
