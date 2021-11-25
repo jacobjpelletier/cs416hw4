@@ -4,5 +4,15 @@ from .models import Task
 
 class TaskForm(forms.ModelForm):
     class Meta:
-        model = Task  # (2)
-        fields = '__all__'  # use all table columns (fields)
+        model = Task
+        fields = '__all__'
+        widgets = {
+            'task_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': "Add tasks"
+            }),
+            'complete': forms.CheckboxInput(attrs={
+                'class': 'form-check-input',
+                'role': "switch"
+            })
+        }

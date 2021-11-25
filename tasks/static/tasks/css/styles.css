@@ -1,9 +1,15 @@
-.completed-task {
-    background-color: darkgrey; !important;
-    color: red; !important;
-    text-decoration: line-through; !important;
+.input {
+    width: 100%;
 }
 
-h1 {
-    color: red;
+.submit-input {
+    width: 100%;
+}
+
+#id_task_item {
+    width: 100%;
+}
+
+body {
+    background-color: #fafafa;
 }
